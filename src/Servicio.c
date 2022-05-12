@@ -7,14 +7,16 @@ int listarServicio(eServicio servicio[], int tam){
 int todoOk = 0;
 
     if(servicio != NULL && tam > 0){
-     // system("cls");
-        printf("   *** Lista de servicio  ***\n");
-        printf("  Id    Descripcion    Precio\n");
-        printf("--------------------------------\n");
+    	system("cls");
+    	printf("\n  __________________________________\n");
+        printf(" |         LISTA DE SERVICIOS       |\n");
+        printf(" |----------------------------------|\n");
+        printf(" |   ID  |  DESCRIPCION  |  PRECIO  |\n");
+        printf(" |----------------------------------|\n");
         for(int i=0; i < tam; i++){
-            printf("   %4d    %10s  %5.2f\n", servicio[i].id, servicio[i].descripcion, servicio[i].precio);
+            printf(" | %-6d| %-14s| %-9.2f|\n", servicio[i].id, servicio[i].descripcion, servicio[i].precio);
         }
-        printf("\n\n");
+        printf(" |----------------------------------|\n\n");
         todoOk = 1;
     }
  return todoOk;

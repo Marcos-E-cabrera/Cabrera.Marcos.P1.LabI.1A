@@ -8,14 +8,16 @@ int listarMarca(eMarca marca[], int tamMarcas)
 int todoOk = 0;
 
     if(marca != NULL && tamMarcas > 0){
-     // system("cls");
-        printf("   *** Lista de marca  ***\n");
-        printf("  Id    Descripcion\n");
-        printf("-----------------------\n");
+    	system("cls");
+    	printf("\n  _____________________\n");
+        printf(" |   LISTA DE MARCAS   |\n");
+        printf(" |---------------------|\n");
+        printf(" |  ID  |  DESCRIPCION |\n");
+        printf(" |---------------------|\n");
         for(int i=0; i < tamMarcas; i++){
-            printf("   %4d    %10s\n", marca[i].id, marca[i].descripcion);
+            printf(" | %-5d|  %-12s|\n", marca[i].id, marca[i].descripcion);
         }
-        printf("\n\n");
+        printf(" |---------------------|\n\n");
         todoOk = 1;
     }
  return todoOk;

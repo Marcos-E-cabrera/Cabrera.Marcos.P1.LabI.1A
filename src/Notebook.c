@@ -1,11 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 #include "Notebook.h"
+#include "Trabajo.h"
 
-
-int inicializarNotebook(eNotebook vec[], int tam)
-{
+int inicializarNotebook(eNotebook vec[], int tam){
     int todoOk = 0;
     if(vec != NULL && tam > 0)
     {
@@ -50,53 +50,53 @@ int altaNotebook(eNotebook vec[], int tam, eMarca marcas[], int tamMarcas,  eTip
         {
             if(indice == - 1)
             {
-                printf("No hay lugar en el sistema\n");
+                printf(" | * NO HAY LUGAR EN EL SISTEMA * |\n");
             }
             else
             {
                 // aca caigo cuando haya lugar
-                printf("Ingrese el modelo de la Notebook : ");
+                printf(" |Ingrese el modelo de la Notebook : ");
                 fflush(stdin);
                 gets(auxCad);
 
                 while(strlen(auxCad) >= 20)
                 {
-                    printf("modelo demasiado largo. Reingrese modelo: ");
+                    printf(" |Modelo demasiado largo. Reingrese modelo: ");
                     fflush(stdin);
                     gets(auxCad);
                 }
                 strcpy(newNoterbook.modelo, auxCad);
 
-				printf("|Ingrese precio: ");
+				printf(" |Ingrese precio: ");
 				fflush(stdin);
 				scanf("%f", &newNoterbook.precio);
 
 				while( newNoterbook.precio <= 1000 || newNoterbook.precio >= 90000)
 				{
-					printf("|Precio invalido. Reingrese precio: ");
+					printf(" |Precio invalido. Reingrese precio: ");
 					fflush(stdin);
 					scanf("%f", &newNoterbook.precio);
 				}
 
                 listarMarca(marcas, tamMarcas);
 
-                printf("Ingrese Id marca: ");
+                printf(" |Ingrese ID MARCA: ");
                 scanf("%d", &newNoterbook. idMarca);
 
                 while( !validarMarca(marcas,tamMarcas, newNoterbook.idMarca))
                 {
-                    printf("Sector invalido.Ingrese Id sector: ");
+                    printf(" |MARCA Invalida. Ingrese ID MARCA: ");
                     scanf("%d", &newNoterbook.idMarca);
                 }
 
                 listarTipos(tipos, tamTipo);
 
-                printf("Ingrese Id tipo: ");
+                printf(" |Ingrese  ID TIPO: ");
                 scanf("%d", &newNoterbook.idtipo);
 
                 while( !validarTipo(tipos,tamTipo, newNoterbook.idtipo))
                 {
-                    printf("Sector invalido. Ingrese Id tipo: ");
+                    printf(" |TIPO invalido. Ingrese ID TIPO: ");
                     scanf("%d", &newNoterbook.idtipo);
                 }
 
@@ -109,48 +109,54 @@ int altaNotebook(eNotebook vec[], int tam, eMarca marcas[], int tamMarcas,  eTip
         }
         else
         {
-            printf("Ocurrio un problema con los parametros\n");
+            printf(" | * OCURRIO UN PROBLEMA CON LOS PARAMETROSO * |\n");
         }
     }
     return todoOk;
 }
 
-int mostrarNotebook(eNotebook l, eTipo tipos[], int tam)
+int mostrarNotebook(eNotebook l, eTipo tipos[], eMarca marcas[], int tam)
 {
     int todoOk = 0;
     char descTipo[20];
+    char descMarca[20];
 
     if(tipos != NULL && tam > 0){
     	cargarDescripcionTipo( tipos, tam, l.idtipo, descTipo);
-        printf("   %4d    %20s      %9.2f    %20s\n",
+    	cargarDescripcionMarca( marcas, tam, l.idMarca, descMarca);
+        printf(" | %-5d| %-20s| %-9.2f| %-10s| %-9s|\n",
         	l.id,
 			l.modelo,
 			l.precio,
-			descTipo
+			descTipo,
+			descMarca
           );
-        todoOk = 1;
     }
     return todoOk;
 }
 
-int listarNotebook(eNotebook list[], int tam, eTipo tipo[])
+int listarNotebook(eNotebook list[], int tam, eTipo tipo[], eMarca marcas[])
 {
     int todoOk = 0;
     int flag = 0;
     if(list != NULL && tam > 0)
     {
         system("cls");
-        printf("                        *** LISTA NOTEBOOK ***\n\n");
-        printf("    ID     |         MODELO         |     PRECIO     |     TIPO     |\n");
-        printf("-------------------------------------------------------------------------\n");
+        printf("\n  ______________________________________________________________\n");
+        printf(" |                     *** LISTA NOTEBOOK  ***                  |\n");
+        printf(" |______________________________________________________________|\n");
+        printf(" |  ID  |       MODELO        |  PRECIO  |    TIPO   |  MARCA   |\n");
+        printf(" |--------------------------------------------------------------|\n");
         for(int i=0; i < tam; i++)
         {
             if( !list[i].isEmpty )
             {
-            	mostrarNotebook(list[i], tipo, tam);
+            	mostrarNotebook(list[i], tipo, marcas, tam);
                 flag++;
             }
         }
+        printf(" |--------------------------------------------------------------|");
+
         if(flag == 0)
         {
             printf("       No hay Notebooks en el sistema");
@@ -162,70 +168,75 @@ int listarNotebook(eNotebook list[], int tam, eTipo tipo[])
     return todoOk;
 }
 
-int modificarNotebook(eNotebook noterbook[], eTipo tipos[], int tam)
+int modificarNotebook(eNotebook noterbook[], int tamNotebook, eTipo tipos[], int tamTipos, eMarca marcas[], int tamMarcas)
 {
 	int todoOk = 0;
 	int indice;
 	int id;
 	char salir = 'n';
 
-	if(noterbook != NULL && tam > 0)
+	if(noterbook != NULL && tamNotebook > 0)
 	{
-		listarNotebook(noterbook, tam, tipos);
-		printf("Ingrese id: ");
+		listarNotebook(noterbook, tamNotebook, tipos, marcas);
+		printf(" |Ingrese ID: ");
 		scanf("%d", &id);
-		if( buscarNotebook(noterbook, tam, id, &indice))
+		printf("\n");
+
+		if( buscarNotebook(noterbook, tamNotebook, id, &indice))
 		{
 			if(indice == -1)
 			{
-				printf("No hay un Notebook con id %d\n", id);
+				printf(" |No hay un Notebook con ID %d\n", id);
 			}
 			else
 			{
-				mostrarNotebook(noterbook[indice], tipos, tam);
+				mostrarNotebook(noterbook[indice], tipos, marcas, tamNotebook);
 				do
 				{
+					system(" pause");
 					switch(menuModificar()){
 					case 1:
-						printf("|Ingrese precio: ");
+						printf(" |Ingrese precio: ");
 						fflush(stdin);
 						scanf("%f", &noterbook[indice].precio);
+						printf("\n");
 
 						while( noterbook[indice].precio <= 1000 || noterbook[indice].precio >= 90000)
 						{
-							printf("|Precio invalido. Reingrese precio: ");
+							printf(" |Precio invalido. Reingrese precio: ");
 							fflush(stdin);
 							scanf("%f", &noterbook[indice].precio);
+							printf("\n");
 						}
 
-						printf("Se ha modificado el precio\n");
+						printf(" | * SE HA MODIFICADO EL PRECIO * |\n");
 						break;
 					case 2:
-
-		                listarTipos(tipos, tam);
-
-		                printf("Ingrese Id tipo: ");
+						listarTipos(tipos, tamTipos);
+		                printf(" |Ingrese ID TIPO: ");
 		                scanf("%d", &noterbook[indice].idtipo);
+		                printf("\n");
 
-		                while( !validarTipo(tipos, tam, noterbook[indice].idtipo))
+		                while( !validarTipo(tipos, tamNotebook, noterbook[indice].idtipo))
 		                {
-		                    printf("Sector invalido. Ingrese Id tipo: ");
+		                    printf(" |TIPO invalido. Ingrese ID TIPO: ");
 		                    scanf("%d", &noterbook[indice].idtipo);
+		                    printf("\n");
 		                }
-						printf("Se ha modificado el tipo de Notebook\n");
+						printf(" \n| * SE HA MODIFICADO EL TIPO DE NOTEBOOK * | \n");
 						break;
 					case 3:
 						salir = 's';
 						break;
 					}
-					system("pause");
+
 				}
 				while(salir != 's');
 			}
 		}
 		else
 		{
-			printf("Ocurrio un problema al buscar empleado\n");
+			printf(" \n| * OCURRIO UN PROBLEMA AL BUSCAR NOTEBOOK * | \n");
 		}
 		todoOk = 1;
 	    }
@@ -254,16 +265,31 @@ int buscarNotebook(eNotebook vec[], int tam,int id, int* pIndex)
 int menuModificar()
 {
     int opcion;
-    printf("     *** Campos a modificar ***\n");
-    printf("1- precio\n");
-    printf("2- tipo\n");
-    printf("6- Salir\n");
-    printf("Ingrese opcion: ");
-    scanf("%d", &opcion);
+    char letra;
+
+    system("cls");
+	printf("  ________________________\n");
+	printf(" | * CAMPOS A MODIFICAR * |\n");
+	printf(" |________________________|\n");
+	printf(" | 1  |    PRECIO         |\n");
+	printf(" | 2  |    TIPO           |\n");
+	printf(" | 3  |    SALIR          |\n");
+	printf(" |------------------------|\n");
+
+	do{
+		printf("  ___________________________________________");
+		printf("\n | Por favor no ingrese letras, solo numeros |");
+		printf("\n  __________________________");
+		printf("\n | Introduzca una opcion: ");
+		fflush(stdin);
+		scanf("%d", &opcion);
+		scanf("%c", &letra);
+
+	} while ((isalpha(letra))||(opcion < 1 || opcion > 3));
     return opcion;
 }
 
-int bajaNotebook(eNotebook vec[], int tam, eTipo tipos[])
+int bajaNotebook(eNotebook vec[], int tam, eTipo tipos[], eMarca marcas[])
 {
     int todoOk = 0;
     int indice;
@@ -271,7 +297,7 @@ int bajaNotebook(eNotebook vec[], int tam, eTipo tipos[])
     char confirma;
     if(vec != NULL && tam > 0)
     {
-    	listarNotebook(vec, tam, tipos);
+    	listarNotebook(vec, tam, tipos, marcas);
         printf("Ingrese id: ");
         scanf("%d", &id);
         if( buscarNotebook(vec, tam, id, &indice))
@@ -282,7 +308,7 @@ int bajaNotebook(eNotebook vec[], int tam, eTipo tipos[])
             }
             else
             {
-            	mostrarNotebook(vec[indice], tipos, tam);
+            	mostrarNotebook(vec[indice], tipos, marcas, tam);
                 printf("Confirma baja?: ");
                 fflush(stdin);
                 scanf("%c", &confirma);
@@ -307,17 +333,38 @@ int bajaNotebook(eNotebook vec[], int tam, eTipo tipos[])
     return todoOk;
 }
 
+int hardcodearNotebook(eNotebook vec[], int tam, int cant, int* pId)
+{
+    int todoOk = 0;
+    eNotebook impostores[] =
+    {
+ //      id, modelo, idmarca, idtipo, precio, 0
+        {0, "modelo1000xx1000zzy", 1000, 5003, 20000, 0},
+        {0, "modelo1000xx1000zzy", 1001, 5002, 40000, 0},
+        {0, "model1000xx1000zzy", 1002, 5001, 50000, 0},
+        {0, "modelo0xx1000zzy", 1003, 5000, 60000, 0},
+        {0, "modelo101000zzy", 1001, 5001, 70000, 0},
+        {0, "m1000zzy", 1002, 5002, 30000, 0},
+        {0, "modelo1000xx00zzy", 1003, 5003, 50000, 0},
+        {0, "modelo1000xx10zzy", 1000, 5001, 80000, 0},
+        {0, "modelo1000xx1000", 1001, 5002, 40000, 0},
+        {0, "modelo1000xx1000zzy", 1002, 5002, 70000, 0}
+    };
 
+    if(vec != NULL && tam > 0 && pId != NULL && cant > 0 && cant <= tam)
+    {
 
+        for(int i=0; i < cant; i++)
+        {
+            vec[i] = impostores[i];
+            vec[i].id = *pId;
+            *pId = *pId +1;
+        }
+        todoOk = 1;
+    }
+    return todoOk;
 
-
-
-
-
-
-
-
-
+}
 
 
 

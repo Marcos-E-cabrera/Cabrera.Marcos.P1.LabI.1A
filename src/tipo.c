@@ -8,14 +8,16 @@ int listarTipos(eTipo tipos[], int tamTipos)
 int todoOk = 0;
 
     if(tipos != NULL && tamTipos > 0){
-     // system("cls");
-        printf("   *** Lista de tipos  ***\n");
-        printf("  Id    Descripcion\n");
-        printf("-----------------------\n");
+    	system("cls");
+    	printf("\n  _____________________\n");
+        printf(" |    LISTA DE TIPOS   |\n");
+        printf(" |---------------------|\n");
+        printf(" |  ID  |  DESCRIPCION |\n");
+        printf(" |---------------------|\n");
         for(int i=0; i < tamTipos; i++){
-            printf("   %4d    %10s\n", tipos[i].id, tipos[i].descripcion);
+            printf(" | %-5d|  %-12s|\n", tipos[i].id, tipos[i].descripcion);
         }
-        printf("\n\n");
+        printf(" |---------------------|\n\n");
         todoOk = 1;
     }
  return todoOk;
