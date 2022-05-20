@@ -36,7 +36,6 @@ int indice;
   return todoOk;
 }
 
-
 int buscarTipo(eTipo tipos[], int tamTipos, int id, int* pIndice){
     int todoOk = 0;
     if(tipos != NULL && tamTipos > 0 && pIndice != NULL){

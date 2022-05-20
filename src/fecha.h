@@ -9,16 +9,9 @@ typedef struct{
 
 #endif // FECHA_H_INCLUDED
 
+/**
+ * VALIDADOR DE FECHAS 1970 A 2022
+ * @param fecha PUNTERO
+ * @return RETORNA 1 SI ESTA BIEN, 0 SI ESTA MAL
+ */
 int validarfecha(eFecha *fecha);
-
-//printf("Ingrese Fecha dd/mm/aaaa: ");
-//scanf("%d/%d/%d", &fecha.dia, &fecha.mes, &fecha.anio);
-//
-//validar = validarfecha(&fecha);
-//{
-//	printf("error fecha %d/%d/%d",fecha.dia,fecha.mes,fecha.anio);//TOMAMOS TRES VARIABLES JUNTAS
-//	printf("Reingrese Fecha dd/mm/aaaa: ");
-//	scanf("%d/%d/%d", &fecha.dia, &fecha.mes, &fecha.anio);
-//	validar =validarfecha(&fecha);
-//}
-//nuevoTrabajo.fecha = fecha;

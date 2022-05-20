@@ -3,7 +3,6 @@
 #include <string.h>
 #include <ctype.h>
 #include "Notebook.h"
-#include "Trabajo.h"
 
 int inicializarNotebook(eNotebook vec[], int tam){
     int todoOk = 0;
@@ -115,54 +114,45 @@ int altaNotebook(eNotebook vec[], int tam, eMarca marcas[], int tamMarcas,  eTip
     return todoOk;
 }
 
-int mostrarNotebook(eNotebook l, eTipo tipos[], eMarca marcas[], int tam)
+int bajaNotebook(eNotebook vec[], int tam, eTipo tipos[], eMarca marcas[])
 {
     int todoOk = 0;
-    char descTipo[20];
-    char descMarca[20];
-
-    if(tipos != NULL && tam > 0){
-    	cargarDescripcionTipo( tipos, tam, l.idtipo, descTipo);
-    	cargarDescripcionMarca( marcas, tam, l.idMarca, descMarca);
-        printf(" | %-5d| %-20s| %-9.2f| %-10s| %-9s|\n",
-        	l.id,
-			l.modelo,
-			l.precio,
-			descTipo,
-			descMarca
-          );
-    }
-    return todoOk;
-}
-
-int listarNotebook(eNotebook list[], int tam, eTipo tipo[], eMarca marcas[])
-{
-    int todoOk = 0;
-    int flag = 0;
-    if(list != NULL && tam > 0)
+    int indice;
+    int id;
+    char confirma;
+    if(vec != NULL && tam > 0)
     {
-        system("cls");
-        printf("\n  ______________________________________________________________\n");
-        printf(" |                     *** LISTA NOTEBOOK  ***                  |\n");
-        printf(" |______________________________________________________________|\n");
-        printf(" |  ID  |       MODELO        |  PRECIO  |    TIPO   |  MARCA   |\n");
-        printf(" |--------------------------------------------------------------|\n");
-        for(int i=0; i < tam; i++)
+    	listarNotebook(vec, tam, tipos, marcas);
+        printf("Ingrese id: ");
+        scanf("%d", &id);
+        if( buscarNotebook(vec, tam, id, &indice))
         {
-            if( !list[i].isEmpty )
+            if(indice == -1)
             {
-            	mostrarNotebook(list[i], tipo, marcas, tam);
-                flag++;
+                printf(" |No hay un empleado con id %d\n", id);
+            }
+            else
+            {
+            	mostrarNotebook(vec[indice], tipos, marcas, tam);
+                printf("Confirma baja (s o n): ");
+                fflush(stdin);
+                scanf("%c", &confirma);
+                if(confirma != 'S' && confirma != 's')
+                {
+                    printf(" | * Baja cancelada por el usuario * |\n");
+                }
+                else
+                {
+                    vec[indice].isEmpty = 1;
+                    printf(" | Baja realizada con el exito!!!\n");
+                    todoOk = 1;
+                }
             }
         }
-        printf(" |--------------------------------------------------------------|");
-
-        if(flag == 0)
+        else
         {
-            printf("       No hay Notebooks en el sistema");
+            printf(" | * Ocurrio un problema al buscar notebook * |\n");
         }
-        printf("\n\n");
-
         todoOk = 1;
     }
     return todoOk;
@@ -223,7 +213,7 @@ int modificarNotebook(eNotebook noterbook[], int tamNotebook, eTipo tipos[], int
 		                    scanf("%d", &noterbook[indice].idtipo);
 		                    printf("\n");
 		                }
-						printf(" \n| * SE HA MODIFICADO EL TIPO DE NOTEBOOK * | \n");
+						printf("\n | * SE HA MODIFICADO EL TIPO DE NOTEBOOK * | \n");
 						break;
 					case 3:
 						salir = 's';
@@ -289,50 +279,6 @@ int menuModificar()
     return opcion;
 }
 
-int bajaNotebook(eNotebook vec[], int tam, eTipo tipos[], eMarca marcas[])
-{
-    int todoOk = 0;
-    int indice;
-    int id;
-    char confirma;
-    if(vec != NULL && tam > 0)
-    {
-    	listarNotebook(vec, tam, tipos, marcas);
-        printf("Ingrese id: ");
-        scanf("%d", &id);
-        if( buscarNotebook(vec, tam, id, &indice))
-        {
-            if(indice == -1)
-            {
-                printf("No hay un empleado con id %d\n", id);
-            }
-            else
-            {
-            	mostrarNotebook(vec[indice], tipos, marcas, tam);
-                printf("Confirma baja?: ");
-                fflush(stdin);
-                scanf("%c", &confirma);
-                if(confirma != 'S' && confirma != 's')
-                {
-                    printf("Baja cancelada por el usuario\n");
-                }
-                else
-                {
-                    vec[indice].isEmpty = 1;
-                    printf("Baja realizada con el exito!!!\n");
-                    todoOk = 1;
-                }
-            }
-        }
-        else
-        {
-            printf("Ocurrio un problema al buscar notebook\n");
-        }
-        todoOk = 1;
-    }
-    return todoOk;
-}
-
 int hardcodearNotebook(eNotebook vec[], int tam, int cant, int* pId)
 {
     int todoOk = 0;
@@ -363,14 +309,57 @@ int hardcodearNotebook(eNotebook vec[], int tam, int cant, int* pId)
         todoOk = 1;
     }
     return todoOk;
-
 }
 
+int mostrarNotebook(eNotebook l, eTipo tipos[], eMarca marcas[], int tam)
+{
+    int todoOk = 0;
+    char descTipo[20];
+    char descMarca[20];
 
+    if(tipos != NULL && tam > 0){
+    	cargarDescripcionTipo( tipos, tam, l.idtipo, descTipo);
+    	cargarDescripcionMarca( marcas, tam, l.idMarca, descMarca);
+        printf(" | %-5d| %-20s| %-9.2f| %-10s| %-9s|\n",
+        	l.id,
+			l.modelo,
+			l.precio,
+			descTipo,
+			descMarca
+          );
+    }
+    return todoOk;
+}
 
+int listarNotebook(eNotebook list[], int tam, eTipo tipo[], eMarca marcas[])
+{
+    int todoOk = 0;
+    int flag = 0;
+    if(list != NULL && tam > 0)
+    {
+        system("cls");
+        printf("\n  ______________________________________________________________\n");
+        printf(" |                     *** LISTA NOTEBOOK  ***                  |\n");
+        printf(" |______________________________________________________________|\n");
+        printf(" |  ID  |       MODELO        |  PRECIO  |    TIPO   |  MARCA   |\n");
+        printf(" |--------------------------------------------------------------|\n");
+        for(int i=0; i < tam; i++)
+        {
+            if( !list[i].isEmpty )
+            {
+            	mostrarNotebook(list[i], tipo, marcas, tam);
+                flag++;
+            }
+        }
+        printf(" |--------------------------------------------------------------|");
 
+        if(flag == 0)
+        {
+            printf("       No hay Notebooks en el sistema");
+        }
+        printf("\n\n");
 
-
-
-
-
+        todoOk = 1;
+    }
+    return todoOk;
+}

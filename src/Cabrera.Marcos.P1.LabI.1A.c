@@ -2,7 +2,7 @@
  ============================================================================
  Name        : 1A.c
  Author      : marcos cabrera
- Version     :
+ Version     : 0.1
  Copyright   : Your copyright notice
  ============================================================================
  */
@@ -11,30 +11,36 @@
 #include <string.h>
 #include <ctype.h>
 
+/// LIBRERIAS
 #include "Notebook.h"
 #include "marca.h"
 #include "tipo.h"
 #include "servicio.h"
 #include "Trabajo.h"
 
+/// TAMANIO ARRAY
 #define TAM 10
 #define TAM_MARCA 4
 #define TAM_TIPO 4
 #define TAM_SERV 4
 #define TAM_TRA 10
 
-int main(void) {
-
+int main(void){
 	setbuf(stdout, NULL);
 	int opcion;
 	char letra;
 
+	/// --------------- ID
 	int proximoId = 100;
     int proximoIdTrabajo = 300;
-	eNotebook lista[TAM];
 
+    /// ------ LISTADO NOTEBOOK
+    eNotebook lista[TAM];
+
+    /// ------ LISTADO TRABAJO
 	eTrabajo trabajo[TAM_TRA];
 
+	/// ------ LISTADO MARCAS
 	eMarca marcas[TAM_MARCA] ={
 		{1000, "Compaq"},
 		{1001, "Asus"},
@@ -42,6 +48,7 @@ int main(void) {
 		{1002, "HP"}
 	};
 
+	/// ------ LISTADO TIPOS
 	eTipo tipo[TAM_TIPO] ={
 		{5000, "Gamer"},
 		{5001, "Disenio"},
@@ -49,6 +56,7 @@ int main(void) {
 		{5003, "Normalita"}
 	};
 
+	/// ------ LISTADO SERVICIOS
 	eServicio servicio[TAM_SERV] ={
 		{20000, "Bateria", 2250},
 		{20001, "Display", 10300},
@@ -56,10 +64,12 @@ int main(void) {
 		{20003, "Fuente", 5600}
 	};
 
+	/// --------------- INICIALIZACIONES
 	inicializarNotebook(lista, TAM);
-
+	inicializarTrabajos(trabajo, TAM_TRA);
 	hardcodearNotebook(lista, TAM, 9, &proximoId);
 
+	/// --------------- MENU VALIDADO
 	do{
 		system("cls");
 		printf("\n  ____________________________\n");
@@ -77,7 +87,7 @@ int main(void) {
 		printf(" | 10 | Salir                 |\n");
 		printf(" |----------------------------|\n");
 
-		do{ /* Filtro de la opción elegida por el usuario */
+		do{
 			printf("  ___________________________________________");
 			printf("\n | Por favor no ingrese letras, solo numeros |");
 			printf("\n  __________________________");
@@ -125,17 +135,17 @@ int main(void) {
 			listarServicio(servicio, TAM_SERV);
 			break;
 		case 8:
-            if(altaTrabajo(trabajo, TAM_TRA, lista, TAM, servicio, TAM_SERV, marcas, TAM_MARCA, tipo, TAM_TIPO, &proximoIdTrabajo))
+            if(altaTrabajo(trabajo, TAM_TRA, lista, TAM, marcas, TAM_MARCA, tipo, TAM_TIPO,servicio, TAM_SERV, &proximoIdTrabajo))
             {
                 printf(" |Trabajo agregado con exito!!!\n");
             }
             else
             {
-                printf("Problema al hacer el alta de trabajo\n");
+                printf(" | * Problema al hacer el alta de trabajo * |\n");
             }
 			break;
 		case 9:
-			listarTrabajo(trabajo, TAM_TRA, lista, TAM, servicio, TAM_SERV, marcas, TAM_MARCA);
+			listarTrabajo(trabajo, lista , servicio, TAM_TRA);
 			break;
 		}
 		system("pause");

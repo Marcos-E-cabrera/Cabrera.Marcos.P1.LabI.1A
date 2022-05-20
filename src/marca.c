@@ -36,7 +36,6 @@ int indice;
   return todoOk;
 }
 
-
 int buscarMarca(eMarca marca[], int tamMarcas, int id, int* pIndice){
     int todoOk = 0;
     if(marca != NULL && tamMarcas > 0 && pIndice != NULL){

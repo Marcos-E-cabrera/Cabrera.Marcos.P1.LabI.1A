@@ -11,6 +11,10 @@ typedef struct
 #endif /* SERVICIO_H_ */
 
 int listarServicio(eServicio servicio[], int tam);
-int buscarServicio(eServicio servicio[], int tam, int id, int* pIndice);
-int validarServicio(eServicio servicio[], int tam, int id);
+
 int cargarDescripcionServicio(eServicio servicio[], int tam, int id, char descripcion[]);
+
+int buscarServicio(eServicio servicio[], int tam, int id, int* pIndice);
+
+int validarServicio(eServicio servicio[], int tam, int id);
+

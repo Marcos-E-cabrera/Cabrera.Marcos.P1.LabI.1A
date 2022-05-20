@@ -7,7 +7,7 @@
 
 typedef struct{
     int id;
-    int idNotebbok;
+    int idNotebook;
     int idServicio;
     eFecha fecha;
     int isEmpty;
@@ -15,10 +15,10 @@ typedef struct{
 
 #endif /* TRABAJO_H_ */
 
-int inicializarTrabajo(eTrabajo vec[], int tam);
+int inicializarTrabajos(eTrabajo vec[], int tam);
 
 int buscarTrabajoLibre(eTrabajo vec[], int tam, int* pIndex);
 
-int altaTrabajo(eTrabajo trabajo[], int tamTrabajo, eNotebook notebook[], int tamNotebook, eServicio servicio[], int tamServicio,  eMarca marcas[], int tamMarcas ,eTipo tipos[], int tamTipo, int* pIdTrabajo);
+int altaTrabajo(eTrabajo trabajo[], int tamT, eNotebook notebook[], int tamN,eMarca marcas[], int tamM, eTipo tipos[], int tamTp, eServicio servicio[], int tamS, int* pIdTrabajo);
 
-int listarTrabajo(eTrabajo trabajo[], int tamTrabajo, eNotebook notebook[], int tamNotebook, eServicio servicio[], int tamServicio, eMarca marcas[], int tamMarcas);
+int listarTrabajo(eTrabajo trabajo[], eNotebook notebook[], eServicio servicio[], int tamTrabajo);

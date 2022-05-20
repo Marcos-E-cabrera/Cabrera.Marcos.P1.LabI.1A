@@ -3,11 +3,11 @@
 #include <string.h>
 #include "servicio.h"
 
+
 int listarServicio(eServicio servicio[], int tam){
 int todoOk = 0;
 
     if(servicio != NULL && tam > 0){
-    	system("cls");
     	printf("\n  __________________________________\n");
         printf(" |         LISTA DE SERVICIOS       |\n");
         printf(" |----------------------------------|\n");
@@ -21,7 +21,6 @@ int todoOk = 0;
     }
  return todoOk;
 }
-
 
 int buscarServicio(eServicio servicio[], int tam, int id, int* pIndice){
     int todoOk = 0;
@@ -49,7 +48,6 @@ int validarServicio(eServicio servicio[], int tam, int id){
     }
     return esValido;
 }
-
 
 int cargarDescripcionServicio(eServicio servicio[], int tam, int id, char descripcion[]){
 int todoOk = 0;
