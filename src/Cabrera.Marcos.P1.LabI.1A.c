@@ -29,7 +29,8 @@ int main(void){
 	setbuf(stdout, NULL);
 	int opcion;
 	char letra;
-
+	int flag = 0;
+	int pepe;
 	/// --------------- ID
 	int proximoId = 100;
     int proximoIdTrabajo = 300;
@@ -103,6 +104,7 @@ int main(void){
 		case 1:
             if( altaNotebook(lista, TAM, marcas , TAM_MARCA , tipo, TAM_TIPO, &proximoId))
             {
+            	flag = 1;
                 printf(" |Noterbook agregado con exito!!!\n");
             }
             else
@@ -111,16 +113,24 @@ int main(void){
             }
 			break;
 		case 2:
-            if( modificarNotebook(lista, TAM, tipo, TAM_TIPO, marcas, TAM_MARCA) == 0)
-            {
-                printf(" | * Problema al hacer la modificacion de Notebook * |\n");
-            }
+			if (flag == 1 || proximoId > 100 )
+			{
+				if( modificarNotebook(lista, TAM, tipo, TAM_TIPO, marcas, TAM_MARCA) == 0)
+				{
+					printf(" | * Problema al hacer la modificacion de Notebook * |\n");
+				}
+			}
 			break;
 		case 3:
-            if( bajaNotebook(lista, TAM, tipo, marcas) == 0)
-            {
-                printf(" | * Problema al hacer la baja de Notebook * |\n");
-            }
+			if (flag == 1 || proximoId > 100)
+			{
+
+				if( bajaNotebook(lista, TAM, tipo, marcas) == 0)
+				{
+					printf(" | * Problema al hacer la baja de Notebook * |\n");
+				}
+
+			}
 			break;
 		case 4:
 			listarNotebook(lista, TAM, tipo, marcas);
