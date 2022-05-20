@@ -30,7 +30,7 @@ int main(void){
 	int opcion;
 	char letra;
 	int flag = 0;
-	int pepe;
+
 	/// --------------- ID
 	int proximoId = 100;
     int proximoIdTrabajo = 300;
