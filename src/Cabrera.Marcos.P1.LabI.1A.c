@@ -2,7 +2,7 @@
  ============================================================================
  Name        : 1A.c
  Author      : marcos cabrera
- Version     : 0.1
+ Version     : 1.1
  Copyright   : Your copyright notice
  ============================================================================
  */
@@ -46,7 +46,7 @@ int main(void){
 		{1000, "Compaq"},
 		{1001, "Asus"},
 		{1002, "Acer"},
-		{1002, "HP"}
+		{1003, "HP"}
 	};
 
 	/// ------ LISTADO TIPOS
@@ -69,24 +69,25 @@ int main(void){
 	inicializarNotebook(lista, TAM);
 	inicializarTrabajos(trabajo, TAM_TRA);
 	hardcodearNotebook(lista, TAM, 9, &proximoId);
+	hardcodearTrabajo(trabajo, TAM, 9, &proximoIdTrabajo);
 
 	/// --------------- MENU VALIDADO
 	do{
 		system("cls");
-		printf("\n  ____________________________\n");
-		printf(" |      * MENU DE ANSI *      |\n");
-		printf(" |____________________________|\n");
-		printf(" | 1  | ALTA NOTEBOOK         |\n");
-		printf(" | 2  | MODIFICAR NOTEBOOK    |\n");
-		printf(" | 3  | BAJA NOTEBOOK         |\n");
-		printf(" | 4  | LISTAR NOTEBOOKS      |\n");
-		printf(" | 5  | LISTAR MARCAS         |\n");
-		printf(" | 6  | LISTAR TIPOS          |\n");
-		printf(" | 7  | LISTAR SERVICIOS      |\n");
-		printf(" | 8  | ALTA TRABAJO          |\n");
-		printf(" | 9  | LISTAR TRABAJOS       |\n");
-		printf(" | 10 | Salir                 |\n");
-		printf(" |----------------------------|\n");
+		printf("\n  __________________________________________________\n");
+		printf(" |                   * MENU DE ANSI *               |\n");
+		printf(" |__________________________________________________|\n");
+		printf(" | 1  | ALTA NOTEBOOK                               |\n");
+		printf(" | 2  | MODIFICAR NOTEBOOK                          |\n");
+		printf(" | 3  | BAJA NOTEBOOK                               |\n");
+		printf(" | 4  | LISTAR NOTEBOOKS                            |\n");
+		printf(" | 5  | LISTAR MARCAS                               |\n");
+		printf(" | 6  | LISTAR TIPOS                                |\n");
+		printf(" | 7  | LISTAR SERVICIOS                            |\n");
+		printf(" | 8  | ALTA TRABAJO                                |\n");
+		printf(" | 9  | LISTAR TRABAJOS                             |\n");
+		printf(" | 15 | Salir                                       |\n");
+		printf(" |--------------------------------------------------|\n");
 
 		do{
 			printf("  ___________________________________________");
@@ -136,7 +137,8 @@ int main(void){
 			listarNotebook(lista, TAM, tipo, marcas);
 			break;
 		case 5:
-			listarMarca(marcas, TAM_MARCA);
+//			listarMarca(marcas, TAM_MARCA);
+			informeMarca(lista, TAM, marcas, TAM_MARCA, tipo);
 			break;
 		case 6:
 			listarTipos(tipo, TAM_TIPO);

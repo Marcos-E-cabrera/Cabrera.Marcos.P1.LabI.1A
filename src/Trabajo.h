@@ -22,3 +22,5 @@ int buscarTrabajoLibre(eTrabajo vec[], int tam, int* pIndex);
 int altaTrabajo(eTrabajo trabajo[], int tamT, eNotebook notebook[], int tamN,eMarca marcas[], int tamM, eTipo tipos[], int tamTp, eServicio servicio[], int tamS, int* pIdTrabajo);
 
 int listarTrabajo(eTrabajo trabajo[], eNotebook notebook[], eServicio servicio[], int tamTrabajo);
+
+int hardcodearTrabajo(eTrabajo vec[], int tam, int cant, int* pId);

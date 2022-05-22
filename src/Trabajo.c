@@ -142,3 +142,34 @@ int listarTrabajo(eTrabajo trabajo[], eNotebook notebook[], eServicio servicio[]
     }
     return todoOk;
 }
+
+int hardcodearTrabajo(eTrabajo vec[], int tam, int cant, int* pId)
+{
+    int todoOk = 0;
+    eTrabajo impostores[] =
+    {
+ //      id, id notebook, idservicio, fecha, 0
+        {0, 100, 20001, {21,4,2022}, 0},
+		{0, 101, 20001, {13,4,2022}, 0},
+		{0, 102, 20000, {22,5,2022}, 0},
+		{0, 103, 20003, {15,5,2022}, 0},
+		{0, 104, 20002, {12,5,2022}, 0},
+		{0, 105, 20002, {17,5,2022}, 0},
+		{0, 106, 20003, {24,5,2022}, 0},
+		{0, 107, 20000, {20,5,2022}, 0},
+		{0, 108, 20000, {20,5,2022}, 0},
+    };
+
+    if(vec != NULL && tam > 0 && pId != NULL && cant > 0 && cant <= tam)
+    {
+
+        for(int i=0; i < cant; i++)
+        {
+            vec[i] = impostores[i];
+            vec[i].id = *pId;
+            *pId = *pId +1;
+        }
+        todoOk = 1;
+    }
+    return todoOk;
+}

@@ -120,6 +120,18 @@ int mostrarNotebook(eNotebook l, eTipo tipos[], eMarca marcas[], int tam);
  */
 int listarNotebook(eNotebook list[], int tam, eTipo tipo[], eMarca marcas[]);
 
+// INFORME DE MARCAS
+
+int menuMarca();
+int informeMarca(eNotebook noterbook[], int tamNotebook, eMarca marcas[], int tamMarcas,eTipo tipos[]);
+int informarNotebookMarca(eNotebook noterbook[], int tamNotebook, eMarca marcas[], int tamMarcas, eTipo tipos[]);
+int informarNotebookXMarca(eNotebook noterbook[], int tamNotebook, eMarca marcas[], int tamMarcas, eTipo tipos[]);
+int cantidadNotebookMarca(eNotebook noterbook[], int tamNotebook, eMarca marcas[], int tamMarcas, eTipo tipos[]);
+
+int promedioPrecioMarca(eNotebook vec[], int tam, eMarca marcas[], int tamMarcas, int idMarca, float* pPromedio);
+int promedioPrecioMarcaElegido(eNotebook vec[], int tam, eMarca marcas[], int tamMarcas, eTipo tipos[]);
+int promedioPrecioXMarca(eNotebook vec[], int tam, eMarca marcas[], int tamMarcas, eTipo tipos[]);
+
 
 
 

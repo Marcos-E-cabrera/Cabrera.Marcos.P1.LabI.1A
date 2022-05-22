@@ -8,7 +8,7 @@ int listarMarca(eMarca marca[], int tamMarcas)
 int todoOk = 0;
 
     if(marca != NULL && tamMarcas > 0){
-    	system("cls");
+//    	system("cls");
     	printf("\n  _____________________\n");
         printf(" |   LISTA DE MARCAS   |\n");
         printf(" |---------------------|\n");
