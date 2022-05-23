@@ -35,7 +35,7 @@ int buscarTrabajoLibre(eTrabajo vec[], int tam, int* pIndex)
     return indice;
 }
 
-int altaTrabajo(eTrabajo trabajo[], int tamT, eNotebook notebook[], int tamN,eMarca marcas[], int tamM, eTipo tipos[], int tamTp, eServicio servicio[], int tamS, int* pIdTrabajo)
+int altaTrabajo(eTrabajo trabajo[], int tamT, eNotebook notebook[], int tamN,eMarca marcas[], int tamM, eTipo tipos[], int tamTp, eServicio servicio[], int tamS, eCliente cliente[], int TamCliente, int* pIdTrabajo)
 {
 	int valFecha = 0;
     int todoOk = 0;
@@ -52,7 +52,7 @@ int altaTrabajo(eTrabajo trabajo[], int tamT, eNotebook notebook[], int tamN,eMa
     		}
     		else
     		{
-    			listarNotebook(notebook, tamN, tipos, marcas);
+    			listarNotebook(notebook, tamN, tipos, marcas, cliente);
     			printf(" |Ingrese id notebook: ");
     			scanf("%d", &nuevoTrabajo.idNotebook);
     			buscarNotebook(notebook, tamN, nuevoTrabajo.idNotebook, &indice);

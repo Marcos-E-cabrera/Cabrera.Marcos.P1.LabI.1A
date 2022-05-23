@@ -114,7 +114,7 @@ int altaNotebook(eNotebook vec[], int tam, eMarca marcas[], int tamMarcas,  eTip
     return todoOk;
 }
 
-int bajaNotebook(eNotebook vec[], int tam, eTipo tipos[], eMarca marcas[])
+int bajaNotebook(eNotebook vec[], int tam, eTipo tipos[], eMarca marcas[], eCliente cliente[])
 {
     int todoOk = 0;
     int indice;
@@ -122,7 +122,7 @@ int bajaNotebook(eNotebook vec[], int tam, eTipo tipos[], eMarca marcas[])
     char confirma;
     if(vec != NULL && tam > 0)
     {
-    	listarNotebook(vec, tam, tipos, marcas);
+    	listarNotebook(vec, tam, tipos, marcas, cliente);
         printf("Ingrese id: ");
         scanf("%d", &id);
         if( buscarNotebook(vec, tam, id, &indice))
@@ -133,7 +133,7 @@ int bajaNotebook(eNotebook vec[], int tam, eTipo tipos[], eMarca marcas[])
             }
             else
             {
-            	mostrarNotebook(vec[indice], tipos, marcas, tam);
+            	mostrarNotebook(vec[indice], tipos, marcas, cliente, tam);
                 printf("Confirma baja (s o n): ");
                 fflush(stdin);
                 scanf("%c", &confirma);
@@ -158,7 +158,7 @@ int bajaNotebook(eNotebook vec[], int tam, eTipo tipos[], eMarca marcas[])
     return todoOk;
 }
 
-int modificarNotebook(eNotebook noterbook[], int tamNotebook, eTipo tipos[], int tamTipos, eMarca marcas[], int tamMarcas)
+int modificarNotebook(eNotebook noterbook[], int tamNotebook, eTipo tipos[], int tamTipos, eMarca marcas[], int tamMarcas, eCliente cliente[], int tamCliente)
 {
 	int todoOk = 0;
 	int indice;
@@ -167,7 +167,7 @@ int modificarNotebook(eNotebook noterbook[], int tamNotebook, eTipo tipos[], int
 
 	if(noterbook != NULL && tamNotebook > 0)
 	{
-		listarNotebook(noterbook, tamNotebook, tipos, marcas);
+		listarNotebook(noterbook, tamNotebook, tipos, marcas,cliente);
 		printf(" |Ingrese ID: ");
 		scanf("%d", &id);
 		printf("\n");
@@ -180,7 +180,7 @@ int modificarNotebook(eNotebook noterbook[], int tamNotebook, eTipo tipos[], int
 			}
 			else
 			{
-				mostrarNotebook(noterbook[indice], tipos, marcas, tamNotebook);
+				mostrarNotebook(noterbook[indice], tipos, marcas, cliente, tamNotebook);
 				do
 				{
 					system(" pause");
@@ -285,16 +285,16 @@ int hardcodearNotebook(eNotebook vec[], int tam, int cant, int* pId)
     eNotebook impostores[] =
     {
  //      id, modelo, idmarca, idtipo, precio, 0
-        {0, "modelo1000xx1000zzy", 1000, 5003, 20000, 0},
-        {0, "modelo1000xx1000zzy", 1001, 5002, 40000, 0},
-        {0, "model1000xx1000zzy", 1002, 5001, 50000, 0},
-        {0, "modelo0xx1000zzy", 1003, 5000, 60000, 0},
-        {0, "modelo101000zzy", 1001, 5001, 70000, 0},
-        {0, "m1000zzy", 1002, 5002, 30000, 0},
-        {0, "modelo1000xx00zzy", 1003, 5003, 50000, 0},
-        {0, "modelo1000xx10zzy", 1000, 5001, 80000, 0},
-        {0, "modelo1000xx1000", 1001, 5002, 40000, 0},
-        {0, "modelo1000xx1000zzy", 1002, 5002, 70000, 0}
+        {0, "modelo1000xx1000zzy", 1000, 5003, 20000,7000, 0},
+        {0, "modelo1000xx1000zzy", 1001, 5002, 40000,7001, 0},
+        {0, "model1000xx1000zzy", 1002, 5001, 50000,7002, 0},
+        {0, "modelo0xx1000zzy", 1003, 5000, 60000,7003, 0},
+        {0, "modelo101000zzy", 1001, 5001, 70000,7004, 0},
+        {0, "m1000zzy", 1002, 5002, 30000,7005, 0},
+        {0, "modelo1000xx00zzy", 1003, 5003, 50000,7006, 0},
+        {0, "modelo1000xx10zzy", 1000, 5001, 80000,7007, 0},
+        {0, "modelo1000xx1000", 1001, 5002, 40000,7008, 0},
+        {0, "modelo1000xx1000zzy", 1002, 5002, 70000,7009, 0}
     };
 
     if(vec != NULL && tam > 0 && pId != NULL && cant > 0 && cant <= tam)
@@ -311,47 +311,50 @@ int hardcodearNotebook(eNotebook vec[], int tam, int cant, int* pId)
     return todoOk;
 }
 
-int mostrarNotebook(eNotebook l, eTipo tipos[], eMarca marcas[], int tam)
+int mostrarNotebook(eNotebook l, eTipo tipos[], eMarca marcas[],eCliente cliente[], int tam)
 {
     int todoOk = 0;
     char descTipo[20];
     char descMarca[20];
+    char descCliente[20];
 
     if(tipos != NULL && tam > 0){
     	cargarDescripcionTipo( tipos, tam, l.idtipo, descTipo);
     	cargarDescripcionMarca( marcas, tam, l.idMarca, descMarca);
-        printf(" | %-5d| %-20s| %-9.2f| %-10s| %-9s|\n",
+    	cargarDescripcionCliente( cliente, tam, l.idCliente, descCliente);
+        printf(" | %-5d| %-20s| %-9.2f| %-10s| %-9s| %-9s|\n",
         	l.id,
 			l.modelo,
 			l.precio,
 			descTipo,
-			descMarca
+			descMarca,
+			descCliente
           );
     }
     return todoOk;
 }
 
-int listarNotebook(eNotebook list[], int tam, eTipo tipo[], eMarca marcas[])
+int listarNotebook(eNotebook list[], int tam, eTipo tipo[], eMarca marcas[], eCliente cliente[])
 {
     int todoOk = 0;
     int flag = 0;
     if(list != NULL && tam > 0)
     {
         system("cls");
-        printf("\n  ______________________________________________________________\n");
-        printf(" |                     *** LISTA NOTEBOOK  ***                  |\n");
-        printf(" |______________________________________________________________|\n");
-        printf(" |  ID  |       MODELO        |  PRECIO  |    TIPO   |  MARCA   |\n");
-        printf(" |--------------------------------------------------------------|\n");
+        printf("\n  __________________________________________________________________________\n");
+        printf(" |                          *** LISTA NOTEBOOK  ***                        |\n");
+        printf(" |_________________________________________________________________________|\n");
+        printf(" |  ID  |       MODELO        |  PRECIO  |    TIPO   |  MARCA   |  CLIENTE |\n");
+        printf(" |-------------------------------------------------------------------------|\n");
         for(int i=0; i < tam; i++)
         {
             if( !list[i].isEmpty )
             {
-            	mostrarNotebook(list[i], tipo, marcas, tam);
+            	mostrarNotebook(list[i], tipo, marcas, cliente, tam);
                 flag++;
             }
         }
-        printf(" |--------------------------------------------------------------|");
+        printf(" |-------------------------------------------------------------------------|");
 
         if(flag == 0)
         {
@@ -363,4 +366,334 @@ int listarNotebook(eNotebook list[], int tam, eTipo tipo[], eMarca marcas[])
     }
     return todoOk;
 }
+
+/// INFORMES
+
+int menuInforme()
+{
+    int opcion;
+    char letra;
+
+    system("cls");
+	printf("  _________________________________________________________________________________________\n");
+	printf(" |                                 * INFORMES *                                          |\n");
+	printf(" |_______________________________________________________________________________________|\n");
+	printf(" | 1 | Mostrar las notebooks del tipo seleccionado por el usuario                        |\n");
+	printf(" | 2 | Mostrar notebooks de una marca seleccionada                                       |\n");
+	printf(" | 3 | Informar la o las notebooks más baratas                                           |\n");
+	printf(" | 4 | Mostrar un listado de las notebooks separadas por marca                           |\n");
+	printf(" | 5 | Elegir un tipo y una marca y contar cuantas notebooks hay de ese tipo y esa marca.|\n");
+	printf(" | 6 | Mostrar la o las marcas más elegidas por los clientes                             |\n");
+	printf(" | 7 | SALIR                                                                             |\n");
+	printf(" |---------------------------------------------------------------------------------------|\n");
+
+	do{
+		printf("  ___________________________________________");
+		printf("\n | Por favor no ingrese letras, solo numeros |");
+		printf("\n  __________________________");
+		printf("\n | Introduzca una opcion: ");
+		fflush(stdin);
+		scanf("%d", &opcion);
+		scanf("%c", &letra);
+
+	} while ((isalpha(letra))||(opcion < 1 || opcion > 7));
+    return opcion;
+}
+
+int informes(eNotebook noterbook[], int tamNotebook, eMarca marcas[], int tamMarcas, eTipo tipos[], int tamTipo ,eCliente cliente[])
+{
+	int todoOk = 0;
+	char salir = 'n';
+
+	if(marcas != NULL && noterbook != NULL && tamMarcas > 0 && tamNotebook > 0)
+	{
+		do
+		{
+			switch(menuInforme()){
+			case 1:
+				informarNotebookTipo(noterbook, tamNotebook, marcas, tipos, tamMarcas, cliente);
+				system(" pause");
+				break;
+			case 2:
+				informarNotebookMarca(noterbook, tamNotebook, marcas, tamMarcas, tipos, cliente);
+				system(" pause");
+				break;
+			case 3:
+				notebookMasBarata(noterbook, tamNotebook, marcas, tipos, cliente);
+				printf("\n\n");
+				system(" pause");
+				break;
+			case 4:
+				informarNotebookXMarca(noterbook, tamNotebook, marcas, tamMarcas, tipos, cliente);
+				printf("\n\n");
+				system(" pause");
+				break;
+			case 5:
+				tipo( noterbook, tamNotebook, tipos, tamTipo);
+				Marca(noterbook, tamNotebook, marcas, tamMarcas);
+				printf("\n\n");
+				system(" pause");
+				break;
+			case 6:
+				cantidadNotebookMarca(noterbook, tamNotebook, marcas, tamMarcas);
+				printf("\n\n");
+				system(" pause");
+				break;
+			case 7:
+				salir = 's';
+				break;
+			}
+		}
+		while(salir != 's');
+	}
+	else
+	{
+		printf(" \n| * OCURRIO UN PROBLEMA AL BUSCAR NOTEBOOK * | \n");
+	}
+	todoOk = 1;
+	return todoOk;
+}
+
+int informarNotebookMarca(eNotebook noterbook[], int tamNotebook, eMarca marcas[], int tamMarcas, eTipo tipos[], eCliente cliente[])
+{
+    int todoOk = 0;
+    int idMarca;
+    int flag = 1;
+    char descripcion[20];
+
+    if(noterbook != NULL && marcas != NULL && tamNotebook > 0 && tamMarcas > 0)
+    {
+        listarMarca(marcas, tamMarcas);
+
+        printf(" |Ingrese Id Marca: ");
+        scanf("%d", &idMarca);
+
+        while( !validarMarca(marcas, tamMarcas, idMarca))
+        {
+            printf(" |Marca invalida. Ingrese Id Marca: ");
+            scanf("%d", &idMarca);
+        }
+
+        for(int i=0; i < tamNotebook; i++)
+        {
+            if( !noterbook[i].isEmpty && noterbook[i].idMarca == idMarca)
+            {
+            	printf("  ______________________________________________________________\n");
+                mostrarNotebook(noterbook[i], tipos, marcas, cliente, tamMarcas);
+                flag = 0;
+            }
+        }
+        if(flag)
+        {
+            cargarDescripcionMarca(marcas, tamMarcas, idMarca, descripcion);
+            printf(" |No hay notebooks registradas en la marca %s\n", descripcion );
+        }
+        printf("\n");
+
+        todoOk = 1;
+    }
+    return todoOk;
+}
+
+int informarNotebookTipo(eNotebook noterbook[], int tamNotebook, eMarca marcas[], eTipo tipos[],int tamTipo ,eCliente cliente[])
+{
+    int todoOk = 0;
+    int idTipo;
+    int flag = 1;
+    char descripcion[20];
+
+    if(noterbook != NULL && tipos != NULL && tamNotebook > 0 && tamTipo > 0)
+    {
+        listarTipos(tipos, tamTipo);
+
+        printf(" |Ingrese Id Tipos: ");
+        scanf("%d", &idTipo);
+
+        while( !validarTipo(tipos, tamTipo, idTipo))
+        {
+            printf(" |tipo invalida. Ingrese Id tipo: ");
+            scanf("%d", &idTipo);
+        }
+
+        for(int i=0; i < tamNotebook; i++)
+        {
+            if( !noterbook[i].isEmpty && noterbook[i].idtipo == idTipo)
+            {
+            	printf("  ______________________________________________________________\n");
+                mostrarNotebook(noterbook[i], tipos, marcas, cliente, tamTipo);
+                flag = 0;
+            }
+        }
+        if(flag)
+        {
+            cargarDescripcionTipo(tipos, tamTipo, idTipo, descripcion);
+            printf(" |No hay notebooks registradas en la marca %s\n", descripcion );
+        }
+        printf("\n");
+
+        todoOk = 1;
+    }
+    return todoOk;
+}
+
+int notebookMasBarata(eNotebook vec[], int tam, eMarca marcas[], eTipo tipos[] , eCliente cliente[])
+{
+    int todoOk = 0;
+    float masBarato;
+    int flag = 1;
+
+    if(vec != NULL && tam > 0 )
+    {
+    	// recorro el vector de notebbok buscando el menor precio de las ntoebook
+    	for(int i=0; i < tam; i++)
+    	{
+    		if( !vec[i].isEmpty)
+    		{
+    			if(flag || vec[i].precio < masBarato)
+    			{
+    				masBarato = vec[i].precio;
+    				flag = 0;
+    				mostrarNotebook(vec[i], tipos, marcas,cliente, tam);
+    			}
+    		}
+    	}
+    	todoOk = 1;
+    }
+    return todoOk;
+}
+int tipo(eNotebook noterbook[], int tamNotebook, eTipo tipos[], int tamTipos){
+	int todoOk = 0;
+	int cantidad1;
+	eNotebook newNoterbook;
+	if(noterbook != NULL && tipos != NULL && tamNotebook > 0 && tamTipos > 0)
+	{
+		listarTipos(tipos, tamTipos);
+
+		printf(" |Ingrese Id tipo: ");
+		scanf("%d", &newNoterbook.idtipo);
+
+		while( !validarTipo(tipos, tamTipos, newNoterbook.idtipo))
+		{
+			printf(" |tipo invalida. Ingrese Id tipo: ");
+			scanf("%d", &newNoterbook.idtipo);
+		}
+
+		cantidad1 = 0;
+
+		for(int e = 0; e < tamNotebook; e++)
+		{
+			if( !noterbook[e].isEmpty && noterbook[e].idMarca == newNoterbook.idtipo)
+			{
+				cantidad1++;
+			}
+		}
+			printf("CANTIDAD: %d  |",cantidad1);
+	}
+		todoOk =1;
+	return todoOk;
+
+}
+int Marca(eNotebook noterbook[], int tamNotebook, eMarca marcas[], int tamMarcas)
+{
+	int todoOk = 0;
+	int cantidad1;
+	eNotebook newNoterbook;
+	if(noterbook != NULL && marcas != NULL && tamNotebook > 0 && tamMarcas > 0)
+	{
+		listarMarca(marcas, tamMarcas);
+
+		printf(" |Ingrese Id Marca: ");
+		scanf("%d", &newNoterbook.idMarca);
+
+		while( !validarMarca(marcas, tamMarcas, newNoterbook.idMarca))
+		{
+			printf(" |Marca invalida. Ingrese Id Marca: ");
+			scanf("%d", &newNoterbook.idMarca);
+		}
+
+		cantidad1 = 0;
+
+		for(int e = 0; e < tamNotebook; e++)
+		{
+			if( !noterbook[e].isEmpty && noterbook[e].idMarca == newNoterbook.idMarca)
+			{
+				cantidad1++;
+			}
+		}
+			printf("CANTIDAD: %d  |",cantidad1);
+	}
+		todoOk =1;
+	return todoOk;
+}
+int informarNotebookXMarca(eNotebook noterbook[], int tamNotebook, eMarca marcas[], int tamMarcas, eTipo tipos[], eCliente cliente[])
+{
+	int todoOk = 0;
+	int flag;
+
+	if(marcas != NULL && noterbook != NULL && tamMarcas > 0 && tamNotebook > 0)
+	{
+		for(int s=0; s < tamMarcas; s++)
+		{
+			printf("\n  __________________________________________________________________________\n");
+			printf(" |                        %-6s                                            |\n", marcas[s].descripcion);
+			printf(" |_________________________________________________________________________|\n");
+			printf(" |  ID  |       MODELO        |  PRECIO  |    TIPO   |  MARCA   | NOMBRE   |\n");
+			printf(" |-------------------------------------------------------------------------|\n");
+
+			flag = 1;
+			for(int i=0; i < tamNotebook; i++)
+			{
+				if( !noterbook[i].isEmpty && noterbook[i].idMarca == marcas[s].id )
+				{
+					mostrarNotebook(noterbook[i], tipos, marcas,cliente, tamMarcas);
+					flag = 0;
+				}
+			}
+
+			if(flag)
+			{
+				printf("       No hay Notebooks en el sistema");
+			}
+			printf(" |-------------------------------------------------------------------------|");
+		}
+		todoOk = 1;
+	}
+	return todoOk;
+}
+
+int cantidadNotebookMarca(eNotebook noterbook[], int tamNotebook, eMarca marcas[], int tamMarcas)
+{
+    int todoOk = 0;
+    int cantidad;
+
+    if(noterbook != NULL && marcas != NULL && tamNotebook > 0 && tamMarcas > 0)
+    {
+        for(int m=0; m < tamMarcas; m++)
+        {
+        	cantidad = 0;
+            printf("\n  ____________________\n");
+            printf(" | MARCA | %-6s: ", marcas[m].descripcion);
+
+            for(int e = 0; e < tamNotebook; e++)
+            {
+                if( !noterbook[e].isEmpty && noterbook[e].idMarca == marcas[m].id)
+                {
+                    cantidad++;
+                }
+            }
+            printf("%d  |",cantidad);
+
+        }
+        todoOk = 1;
+    }
+    return todoOk;
+}
+
+
+
+
+
+
+
+
 

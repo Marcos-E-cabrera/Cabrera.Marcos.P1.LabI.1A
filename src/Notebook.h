@@ -1,5 +1,6 @@
 #include "tipo.h"
 #include "marca.h"
+#include "cliente.h"
 
 #ifndef NOTEBOOK_H_
 #define NOTEBOOK_H_
@@ -11,6 +12,7 @@ typedef struct
     int idMarca;
     int idtipo;
     float precio;
+    int idCliente;
     int isEmpty;
 } eNotebook;
 
@@ -56,8 +58,7 @@ int altaNotebook(eNotebook vec[], int tam, eMarca marcas[], int tamMarcas, eTipo
  * @param marcas ARRAY DE MARCAS
  * @return 1 - BIEN, 0 MAL
  */
-int bajaNotebook(eNotebook vec[], int tam, eTipo tipos[], eMarca marcas[]);
-
+int bajaNotebook(eNotebook vec[], int tam, eTipo tipos[], eMarca marcas[], eCliente cliente[]);
 /**
  * MODIFICA UNA NOTEBOOK SELECCIONADA POR ID
  * @param noterbook ARRAY
@@ -68,7 +69,7 @@ int bajaNotebook(eNotebook vec[], int tam, eTipo tipos[], eMarca marcas[]);
  * @param tamMarcas TAMANIO DE ARRAY
  * @return 1- BIEN, 0 -MAL
  */
-int modificarNotebook(eNotebook noterbook[], int tamNotebook, eTipo tipos[], int tamTipos, eMarca marcas[], int tamMarcas);
+int modificarNotebook(eNotebook noterbook[], int tamNotebook, eTipo tipos[], int tamTipos, eMarca marcas[], int tamMarcas, eCliente cliente[], int tamCliente);
 
 /**
  * BUSCA UNA NOTEBOOK CARGADA POR ID Y MUESTRA SU DIRECCION
@@ -108,7 +109,7 @@ int hardcodearNotebook(eNotebook vec[], int tam, int cant, int* pId);
  * @param tam TAMANIO DEL ARRAY NOTEBOOK
  * @return 1 - BIEN, 0 - MAL
  */
-int mostrarNotebook(eNotebook l, eTipo tipos[], eMarca marcas[], int tam);
+int mostrarNotebook(eNotebook l, eTipo tipos[], eMarca marcas[],eCliente cliente[], int tam);
 
 /**
  * MUSTRO EN UN CUADRO ORDENADO LOS NOTEBOOKS
@@ -118,7 +119,29 @@ int mostrarNotebook(eNotebook l, eTipo tipos[], eMarca marcas[], int tam);
  * @param marcas ARRAY MASCAS
  * @return 1- BIEN, 0 - MAL
  */
-int listarNotebook(eNotebook list[], int tam, eTipo tipo[], eMarca marcas[]);
+int listarNotebook(eNotebook list[], int tam, eTipo tipo[], eMarca marcas[], eCliente cliente[]);
+
+/// INFORMES
+//Mostrar las notebooks del tipo seleccionado por el usuario
+
+int menuInforme();
+
+int informes(eNotebook noterbook[], int tamNotebook, eMarca marcas[], int tamMarcas, eTipo tipos[], int tamTipo , eCliente cliente[]);
+//1
+int informarNotebookMarca(eNotebook noterbook[], int tamNotebook, eMarca marcas[], int tamMarcas, eTipo tipos[], eCliente cliente[]);
+//2
+int informarNotebookTipo(eNotebook noterbook[], int tamNotebook, eMarca marcas[], eTipo tipos[],int tamTipo ,eCliente cliente[]);
+// 3
+int notebookMasBarata(eNotebook vec[], int tam, eMarca marcas[], eTipo tipos[] , eCliente cliente[]);
+
+//4
+int informarNotebookXMarca(eNotebook noterbook[], int tamNotebook, eMarca marcas[], int tamMarcas, eTipo tipos[], eCliente cliente[]);
+//5
+int tipo(eNotebook noterbook[], int tamNotebook, eTipo tipos[], int tamTipos);
+int Marca(eNotebook noterbook[], int tamNotebook, eMarca marcas[], int tamMarcas);
+//6
+int cantidadNotebookMarca(eNotebook noterbook[], int tamNotebook, eMarca marcas[], int tamMarcas);
+
 
 
 

@@ -19,7 +19,7 @@ int inicializarTrabajos(eTrabajo vec[], int tam);
 
 int buscarTrabajoLibre(eTrabajo vec[], int tam, int* pIndex);
 
-int altaTrabajo(eTrabajo trabajo[], int tamT, eNotebook notebook[], int tamN,eMarca marcas[], int tamM, eTipo tipos[], int tamTp, eServicio servicio[], int tamS, int* pIdTrabajo);
+int altaTrabajo(eTrabajo trabajo[], int tamT, eNotebook notebook[], int tamN,eMarca marcas[], int tamM, eTipo tipos[], int tamTp, eServicio servicio[], int tamS, eCliente cliente[], int TamCliente, int* pIdTrabajo);
 
 int listarTrabajo(eTrabajo trabajo[], eNotebook notebook[], eServicio servicio[], int tamTrabajo);
 
