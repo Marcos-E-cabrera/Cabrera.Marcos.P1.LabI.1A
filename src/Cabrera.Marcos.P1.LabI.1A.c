@@ -137,8 +137,7 @@ int main(void){
 			listarNotebook(lista, TAM, tipo, marcas);
 			break;
 		case 5:
-//			listarMarca(marcas, TAM_MARCA);
-			informeMarca(lista, TAM, marcas, TAM_MARCA, tipo);
+			listarMarca(marcas, TAM_MARCA);
 			break;
 		case 6:
 			listarTipos(tipo, TAM_TIPO);
